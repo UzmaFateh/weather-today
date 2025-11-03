@@ -1,4 +1,4 @@
-/* General container */
+General container
 .app-container {
   min-height: 100vh;
   padding: 2rem;
@@ -252,8 +252,91 @@
 .forecast-card:nth-child(4) { animation: fadeIn 0.8s forwards; animation-delay: 0.4s; }
 .forecast-card:nth-child(5) { animation: fadeIn 0.8s forwards; animation-delay: 0.5s; }
 
+/* unit toggle */
+
+.unit-toggle {
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  background-color: #FFD700;
+  color: #000;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.unit-toggle:hover {
+  background-color: #FFC107;
+  transform: scale(1.05);
+}
+
+
+.weather-suggestion {
+  color: #FFD700; /* Bright yellow */
+  font-weight: bold;
+  margin-top: 0.5rem;
+}
+
+
 /* Utility for headings and paragraphs */
 p, h2, h1 {
   margin: 0.3rem 0;
 }
 
+
+/* Hourly forecast section */
+.hourly-section {
+  margin: 2rem auto;
+  max-width: 1000px;
+  text-align: center;
+}
+
+.hourly-scroll {
+  display: flex;
+  overflow-x: auto;
+  gap: 1rem;
+  padding: 1rem 0;
+  scrollbar-width: thin;
+}
+
+.hour-card {
+  background: rgba(50, 50, 50, 0.8);
+  padding: 1rem;
+  border-radius: 12px;
+  min-width: 120px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  transition: transform 0.3s;
+}
+
+.hour-card:hover {
+  transform: scale(1.05);
+}
+
+/* 7-day chart section */
+.chart-section {
+  max-width: 900px;
+  margin: 2rem auto;
+  background: rgba(40, 40, 40, 0.8);
+  border-radius: 16px;
+  padding: 1rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+.chart-section h2 {
+  margin-bottom: 1rem;
+  color: #FFD700;
+}
+
+/* === Weather Background Animations === */
+/* --- WEATHER ANIMATIONS --- */
+/* Global text color */
+.app-container {
+  color: #ffffff; /* white text */
+}
+
+/* Optional: headings ko thoda zyada bright rakhne ke liye */
+h1, h2, h3 {
+  color: #f8f9fa;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+ 
+}
