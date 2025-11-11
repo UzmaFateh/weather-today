@@ -26,8 +26,6 @@ function App() {
   const [aqi, setAqi] = useState(null);
   const [recentIndex, setRecentIndex] = useState(0);
   const [showFavorites, setShowFavorites] = useState(false);
- const [showNavMenu, setShowNavMenu] = useState(false);  // navbar k lie
-
 
   const [hourlyCarouselOffset, setHourlyCarouselOffset] = useState(0);
   const hourlyScrollRef = useRef(null); // Ref for the hourly-scroll container
@@ -261,57 +259,9 @@ function App() {
 
   return (
     <div className={`app-container ${weather ? getBackgroundClass(weather.weather[0].description) : "bg-default"}`}>
-      {/* <nav className="navbar">
-        <h1>🌎 WeatherApp</h1>
-      </nav> */}
-
-
       <nav className="navbar">
-  <h1>🌎 WeatherApp</h1>
-
-  {/* Desktop / Tablet Buttons */}
-  <div className="navbar-links">
-    <button onClick={() => document.getElementById("forecast-section")?.scrollIntoView({ behavior: "smooth" })}>
-      Forecast
-    </button>
-    <button onClick={() => document.getElementById("hourly-section")?.scrollIntoView({ behavior: "smooth" })}>
-      Hourly
-    </button>
-    <button onClick={() => document.getElementById("trend-section")?.scrollIntoView({ behavior: "smooth" })}>
-      Temp Trend
-    </button>
-  </div>
-
-  {/* Mobile Toggle */}
-  <button
-    className="navbar-toggle"
-    onClick={() => setShowNavMenu((prev) => !prev)}
-  >
-    ☰
-  </button>
-
-  {/* Mobile Dropdown */}
-  {showNavMenu && (
-    <div className="navbar-dropdown">
-      <p onClick={() => document.getElementById("forecast-section")?.scrollIntoView({ behavior: "smooth" })}>
-        Forecast
-      </p>
-      <p onClick={() => document.getElementById("hourly-section")?.scrollIntoView({ behavior: "smooth" })}>
-        Hourly
-      </p>
-      <p onClick={() => document.getElementById("trend-section")?.scrollIntoView({ behavior: "smooth" })}>
-        Temp Trend
-      </p>
-    </div>
-  )}
-</nav>
-
-
-
-
-
-
-
+        <h1>🌎 WeatherApp</h1>
+      </nav>
 
       <div className="hero-section">
         <div className="hero-controls">
@@ -443,7 +393,7 @@ function App() {
       />
 
       {hourlyForecast.length > 0 && (
-        <div id="hourly-section"   className="hourly-ad-section">
+        <div className="hourly-ad-section">
           <div className="hourly-carousel-wrapper">
             <h3>Next 24 Hours</h3>
             <div className="hourly-carousel-controls">
@@ -474,7 +424,7 @@ function App() {
       )}
 
       {forecast.length > 0 && (
-        <div  id="forecast-section"   className="forecast-grid">
+        <div className="forecast-grid">
           {forecast.map((day, idx) => (
             <div key={idx} className="forecast-card">
               <p>{new Date(day.dt_txt).toLocaleDateString("en-US", { weekday: "short" })}</p>
@@ -487,7 +437,7 @@ function App() {
       )}
 
       {forecast.length > 0 && (
-        <div  id="trend-section"  className="chart-section">
+        <div className="chart-section">
           <h3>7-Day Temperature Trend</h3>
           <ResponsiveContainer width="100%" height={250}>
             <LineChart data={forecast.map(d => ({ ...d, temp: d.main.temp }))}>
@@ -504,3 +454,35 @@ function App() {
 
 export default App;
 
+
+
+      // weatherCard={
+      //     weather && (
+            
+      //       <div className="weather-card">
+      //         <hr />
+      //         <div className="main-info">
+              
+      //           <h2 className="city-favourit">{weather.name}
+      //             <button className="fav-btn" onClick={() => toggleFavorite(weather.name)}>
+      //               {favorites.includes(weather.name) ? "❤️" : "🤍"}
+      //             </button>
+      //           </h2>
+      //           <p className="temp">{Math.round(weather.main.temp)}°{unit === 'metric' ? 'C' : 'F'}</p>
+      //           {getWeatherIcon(weather.weather[0].description)}
+      //           <p className="details">{weather.weather[0].description}</p>
+
+
+      //         </div>
+
+      //         <div className="extra-info">
+      //           <p>Feels like: {Math.round(weather.main.feels_like)}°</p>
+      //           <p>Humidity: {weather.main.humidity}%</p>
+      //           <p>Wind: {weather.wind.speed} {unit === 'metric' ? 'm/s' : 'mph'}</p>
+      //           {weather.wind.deg !== undefined && <p>Direction: {getWindDirection(weather.wind.deg).text}</p>}
+      //           <p>Local Time: {getLocalTime(weather.timezone)}</p>
+      //           {aqi && <p>AQI: {aqi}</p>}
+      //         </div>
+      //       </div>
+      //     )
+      //   }

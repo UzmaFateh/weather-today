@@ -1,0 +1,160 @@
+
+.three-column-layout {
+  display: grid;
+  grid-template-columns: 1fr 56% 15%; /* Weather Card, Weather Radar (45%), Ad Carousel (15%) */
+  gap: 1rem;
+  margin: 2rem auto;
+  max-width: 90%;
+  align-items: stretch; /* Ensure all items stretch to the same height */
+ 
+
+}
+
+/* .weather-radar { */
+  /* background: rgba(40, 40, 40, 0.8); */
+  /* padding: 1.5rem; */
+  /* border-radius: 16px; */
+  /* height: 100%; */
+   /* Make the components take the full height of the grid row */
+/* } */
+
+.ad-carousel {
+  background: gray;
+  /* padding: 1.5rem; */
+  border-radius: 16px;
+  height: 100%; /* Make the components take the full height of the grid row */
+  overflow: hidden;
+  position: relative;
+}
+
+.ad-carousel-track {
+  display: flex;
+  flex-direction: column;
+  animation: scroll-up 20s linear infinite;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.ad-carousel-item {
+  background: transparent;
+  padding: 1rem;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+@keyframes scroll-up {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+
+
+
+.three-column-layout {
+  display: grid;
+  grid-template-columns: 1fr 56% 15%; /* Laptop/Desktop layout */
+  gap: 1rem;
+  margin: 2rem auto;
+  max-width: 90%;
+  align-items: stretch;
+}
+
+/* Ad Carousel Style */
+.ad-carousel {
+  background: gray;
+  border-radius: 16px;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.ad-carousel-track {
+  display: flex;
+  flex-direction: column;
+  animation: scroll-up 20s linear infinite;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.ad-carousel-item {
+  background: transparent;
+  padding: 1rem;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+@keyframes scroll-up {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+/* ✅ MOBILE VIEW (sirf ThreeColumnLayout ke liye) */
+@media (max-width: 768px) {
+
+
+
+  .weather-card{
+    width: 80%;
+  }
+  .three-column-layout {
+    grid-template-columns: 1fr; /* 1 column */
+    max-width: 90%; /* fullscreen width */
+  }
+
+  .ad-carousel-track {
+    flex-direction: row; /* vertical → horizontal */
+    animation: scroll-up 0s linear infinite; /* autoplay band */
+    position: relative;
+    overflow-x: auto;
+    width: auto;
+  }
+
+  .ad-carousel-item {
+    min-width: 20%; /* har ad horizontally scrollable */
+    margin-right: 1rem;
+  }
+}
+
+
+@media (max-width: 425px) {
+
+
+
+  .weather-card{
+    width: 100%;
+  }
+  .three-column-layout {
+    grid-template-columns: 1fr; /* 1 column */
+    max-width: 100%; /* fullscreen width */
+  }
+
+  .ad-carousel-track {
+    flex-direction: column; /* vertical → horizontal */
+    animation: scroll-up 0s linear infinite; /* autoplay band */
+    position: relative;
+    overflow-x: auto;
+    width: auto;
+    height:200px ;
+  }
+
+  .ad-carousel-item {
+    min-width: 90%; /* har ad horizontally scrollable */
+    
+    margin-right: 1rem;
+  }
+}
+
+
+
