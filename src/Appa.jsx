@@ -262,11 +262,12 @@ function App() {
   return (
     <div className={`app-container ${weather ? getBackgroundClass(weather.weather[0].description) : "bg-default"}`}>
 
-      {/* Navbar Section */}
+
+
       <nav className="navbar">
         <h1>🌎 WeatherApp</h1>
 
-        {/* Desktop / Tablet Links */}
+        {/* Desktop / Tablet Buttons */}
         <div className="navbar-links">
           <button onClick={() => document.getElementById("forecast-section")?.scrollIntoView({ behavior: "smooth" })}>
             Forecast
@@ -279,7 +280,7 @@ function App() {
           </button>
         </div>
 
-        {/* Mobile Menu Toggle */}
+        {/* Mobile Toggle */}
         <button
           className="navbar-toggle"
           onClick={() => setShowNavMenu((prev) => !prev)}
@@ -287,31 +288,16 @@ function App() {
           ☰
         </button>
 
-        {/* Mobile Dropdown Menu */}
+        {/* Mobile Dropdown */}
         {showNavMenu && (
           <div className="navbar-dropdown">
-            <p
-              onClick={() => {
-                document.getElementById("forecast-section")?.scrollIntoView({ behavior: "smooth" });
-                setShowNavMenu(false);
-              }}
-            >
+            <p onClick={() => document.getElementById("forecast-section")?.scrollIntoView({ behavior: "smooth" })}>
               Forecast
             </p>
-            <p
-              onClick={() => {
-                document.getElementById("hourly-section")?.scrollIntoView({ behavior: "smooth" });
-                setShowNavMenu(false);
-              }}
-            >
+            <p onClick={() => document.getElementById("hourly-section")?.scrollIntoView({ behavior: "smooth" })}>
               Hourly
             </p>
-            <p
-              onClick={() => {
-                document.getElementById("trend-section")?.scrollIntoView({ behavior: "smooth" });
-                setShowNavMenu(false);
-              }}
-            >
+            <p onClick={() => document.getElementById("trend-section")?.scrollIntoView({ behavior: "smooth" })}>
               Temp Trend
             </p>
           </div>
@@ -321,79 +307,198 @@ function App() {
 
 
 
+
+
+
+
       <div className="hero-section">
         <div className="hero-controls">
-
-          <div className="search-box">
-            <div className="search-bar">
-              <input
-                type="text"
-                placeholder="Enter city name..."
-                value={city}
-                onChange={(e) => setCity(e.target.value)}
-                onKeyDown={(e) => e.key === "Enter" && fetchWeatherByCity()}
-              />
-              <button onClick={() => fetchWeatherByCity()}>
-                <FaSearch />
-              </button>
-            </div>
-            {suggestions.length > 0 && (
-              <ul className="suggestions">
-                {suggestions.map((s, i) => (
-                  <li key={i} onClick={() => fetchWeatherByCity(s.name)}>
-                    {s.name}, {s.country}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
-
-          <div className="unit-toggle">
-            <span className={`unit ${unit === 'metric' ? 'active' : ''}`} onClick={() => setUnit('metric')}>°C</span>
-            <label className="switch">
-              <input type="checkbox" onChange={toggleUnit} checked={unit === 'imperial'} />
-              <span className="slider round"></span>
-            </label>
-            <span className={`unit ${unit === 'imperial' ? 'active' : ''}`} onClick={() => setUnit('imperial')}>°F</span>
-          </div>
-
-
-
-          {recent.length > 0 && (
-            <div className="recent-carousel">
-              <button onClick={handlePrevRecent} disabled={recent.length <= 1}><FaChevronLeft /></button>
-              <div className="recent-cities">
-                <span onClick={() => fetchWeatherByCity(recent[recentIndex])}>{recent[recentIndex]}</span>
+          <div className="hero-row-1">
+            <div className="search-box">
+              <div className="search-bar">
+                <input
+                  type="text"
+                  placeholder="Enter city name..."
+                  value={city}
+                  onChange={(e) => setCity(e.target.value)}
+                  onKeyDown={(e) => e.key === "Enter" && fetchWeatherByCity()}
+                />
+                <button onClick={() => fetchWeatherByCity()}>
+                  <FaSearch />
+                </button>
               </div>
-              <button onClick={handleNextRecent} disabled={recent.length <= 1}><FaChevronRight /></button>
+              {suggestions.length > 0 && (
+                <ul className="suggestions">
+                  {suggestions.map((s, i) => (
+                    <li key={i} onClick={() => fetchWeatherByCity(s.name)}>
+                      {s.name}, {s.country}
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
-          )}
 
-          <div className="favorites-dropdown">
-            <button onClick={() => setShowFavorites(!showFavorites)}>
-              <FaStar /> Favorites <FaCaretDown />
-            </button>
-            {showFavorites && (
-              <ul className="favorites-list">
-                {favorites.length > 0 ? favorites.map((fav) => (
-                  <li key={fav} onClick={() => { fetchWeatherByCity(fav); setShowFavorites(false); }}>
-                    {fav}
-                  </li>
-                )) : <li>No favorites added</li>}
-              </ul>
+            <div className="unit-toggle">
+              <span className={`unit ${unit === 'metric' ? 'active' : ''}`} onClick={() => setUnit('metric')}>°C</span>
+              <label className="switch">
+                <input type="checkbox" onChange={toggleUnit} checked={unit === 'imperial'} />
+                <span className="slider round"></span>
+              </label>
+              <span className={`unit ${unit === 'imperial' ? 'active' : ''}`} onClick={() => setUnit('imperial')}>°F</span>
+            </div>
+          </div>
+
+          <div className="hero-row-2">
+            {recent.length > 0 && (
+              <div className="recent-carousel">
+                <button onClick={handlePrevRecent} disabled={recent.length <= 1}><FaChevronLeft /></button>
+                <div className="recent-cities">
+                  <span onClick={() => fetchWeatherByCity(recent[recentIndex])}>{recent[recentIndex]}</span>
+                </div>
+                <button onClick={handleNextRecent} disabled={recent.length <= 1}><FaChevronRight /></button>
+              </div>
             )}
+
+            <div className="favorites-dropdown">
+              <button onClick={() => setShowFavorites(!showFavorites)}>
+                <FaStar /> Favorites <FaCaretDown />
+              </button>
+              {showFavorites && (
+                <ul className="favorites-list">
+                  {favorites.length > 0 ? favorites.map((fav) => (
+                    <li key={fav} onClick={() => { fetchWeatherByCity(fav); setShowFavorites(false); }}>
+                      {fav}
+                    </li>
+                  )) : <li>No favorites added</li>}
+                </ul>
+              )}
+            </div>
           </div>
         </div>
+        {loading && <p className="loading-text">Loading...</p>}
+        {error && <p className="error-text">{error}</p>}
       </div>
-      {loading && <p className="loading-text">Loading...</p>}
-      {error && <p className="error-text">{error}</p>}
 
+      <ThreeColumnLayout
+        weatherCard={
+          weather && (
 
+            <div className="weather-card">
+              <hr />
+              <div className="city-header">
+                <h2 className="city-name">{weather.name}</h2>
+                <button className="fav-btn" onClick={() => toggleFavorite(weather.name)}>
+                  {favorites.includes(weather.name) ? "❤️" : "🤍"}
+                </button>
+              </div>
+              <div className="temp-icon-row">
+                {getWeatherIcon(weather.weather[0].description)}
+                <p className="temp">{Math.round(weather.main.temp)}°{unit === 'metric' ? 'C' : 'F'}</p>
+              </div>
+              <p className="details">{weather.weather[0].description}</p>
 
+              <div className="extra-info">
+                <p>Feels like: {Math.round(weather.main.feels_like)}°</p>
+                <p>Humidity: {weather.main.humidity}%</p>
+                <p>Wind: {weather.wind.speed} {unit === 'metric' ? 'm/s' : 'mph'}</p>
+                {weather.wind.deg !== undefined && <p>Direction: {getWindDirection(weather.wind.deg).text}</p>}
+                <p>Local Time: {getLocalTime(weather.timezone)}</p>
+                {weather.sys && weather.sys.sunrise && <p>Sunrise: {formatUnixToLocalTime(weather.sys.sunrise, weather.timezone)}</p>}
+                {weather.sys && weather.sys.sunset && <p>Sunset: {formatUnixToLocalTime(weather.sys.sunset, weather.timezone)}</p>}
+                {aqi && <p>AQI: {aqi}</p>}
+              </div>
+            </div>
+          )
+        }
+        weatherRadar={
+          <div className="weather-radar">
+            {weather && weather.coord && (
+              <WeatherMap
+                lat={weather.coord.lat}
+                lon={weather.coord.lon}
+                apiKey={API_KEY}
+                cityName={weather.name}
+              />
+            )}
+          </div>
+        }
+        adCarousel={
+          <div className="ad-carousel">
+            <div className="ad-carousel-track">
+              <div className="ad-carousel-item">Item 1</div>
+              <div className="ad-carousel-item">Item 2</div>
+              <div className="ad-carousel-item">Item 3</div>
+              <div className="ad-carousel-item">Item 4</div>
+              <div className="ad-carousel-item">Item 5</div>
+              <div className="ad-carousel-item">Item 6</div>
+              <div className="ad-carousel-item">Item 7</div>
+              <div className="ad-carousel-item">Item 8</div>
+              <div className="ad-carousel-item">Item 9</div>
+              <div className="ad-carousel-item">Item 10</div>
+            </div>
+          </div>
+        }
+      />
 
+      {hourlyForecast.length > 0 && (
+        <div id="hourly-section" className="hourly-ad-section">
+          <div className="hourly-carousel-wrapper">
+            <h3>Next 24 Hours</h3>
+            <div className="hourly-carousel-controls">
+              <button onClick={handlePrevHourly}>
+                <FaChevronLeft />
+              </button>
+              <div className="hourly-scroll-container">
+                <div className="hourly-scroll" ref={hourlyScrollRef} style={{ transform: `translateX(${hourlyCarouselOffset}px)` }}>
+                  {hourlyForecast.map((hour, idx) => (
+                    <div key={idx} className="hour-card">
+                      <p>{new Date(hour.dt_txt).getHours()}:00</p>
+                      {getWeatherIcon(hour.weather[0].description)}
+                      <p>{Math.round(hour.main.temp)}°</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <button onClick={handleNextHourly}>
+                <FaChevronRight />
+              </button>
+            </div>
+          </div>
+          <div className="ad-container">
+            <h4>Advertisement</h4>
+            <p>Your ad content here!</p>
+          </div>
+        </div>
+      )}
 
+      {forecast.length > 0 && (
+        <div id="forecast-section" className="forecast-grid">
+          {forecast.map((day, idx) => (
+            <div key={idx} className="forecast-card">
+              <p>{new Date(day.dt_txt).toLocaleDateString("en-US", { weekday: "short" })}</p>
+              {getWeatherIcon(day.weather[0].description)}
+              <p className="temp">{Math.round(day.main.temp)}°</p>
+              <p className="details">{day.weather[0].description}</p>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {forecast.length > 0 && (
+        <div id="trend-section" className="chart-section">
+          <h3>7-Day Temperature Trend</h3>
+          <ResponsiveContainer width="100%" height={250}>
+            <LineChart data={forecast.map(d => ({ ...d, temp: d.main.temp }))}>
+              <XAxis dataKey="dt_txt" tickFormatter={(str) => new Date(str).toLocaleDateString("en-US", { weekday: 'short' })} />
+              <Tooltip />
+              <Line type="monotone" dataKey="temp" stroke="#1E90FF" strokeWidth={3} dot={{ r: 5 }} />
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
+      )}
     </div>
   );
 }
 
 export default App;
+
