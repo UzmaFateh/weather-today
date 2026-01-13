@@ -455,6 +455,12 @@ margin-left: 4px;
 
 @media (max-width: 420px) {
 
+
+
+  .app-logo{
+  width: 30px;
+  height: 30px;
+}
   .navbar h1 {
   font-size: 1.2rem;
   margin: 0;
