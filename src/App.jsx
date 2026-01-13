@@ -1,16 +1,66 @@
 import { LineChart, Line, XAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { useState, useEffect, useRef } from "react";
-import {
-  WiDaySunny, WiCloud, WiRain, WiSnow, WiThunderstorm, WiFog
-}
-  from "react-icons/wi";
 import { FaSearch, FaChevronLeft, FaChevronRight, FaStar, FaCaretDown } from "react-icons/fa";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import "./App.css";
 import 'leaflet/dist/leaflet.css';
 import './WeatherMap.css';
 import WeatherMap from './WeatherMap';
 import ThreeColumnLayout from './ThreeColumnLayout';
 import './ThreeColumnLayout.css';
+import Footer from './Footer';
+
+// Import animated SVG icons
+const weatherIconMap = {
+  "clear sky": "/src/assets/weather-icons/clear-day.svg",
+  "few clouds": "/src/assets/weather-icons/partly-cloudy-day.svg", // Assuming partly cloudy for few clouds
+  "scattered clouds": "/src/assets/weather-icons/cloudy.svg",
+  "broken clouds": "/src/assets/weather-icons/cloudy.svg",
+  "overcast clouds": "/src/assets/weather-icons/cloudy.svg",
+  "shower rain": "/src/assets/weather-icons/rain.svg",
+  "rain": "/src/assets/weather-icons/rain.svg",
+  "light rain": "/src/assets/weather-icons/rain.svg",
+  "moderate rain": "/src/assets/weather-icons/rain.svg",
+  "heavy intensity rain": "/src/assets/weather-icons/rain.svg",
+  "very heavy rain": "/src/assets/weather-icons/rain.svg",
+  "extreme rain": "/src/assets/weather-icons/rain.svg",
+  "freezing rain": "/src/assets/weather-icons/rain.svg", // Closest
+  "light intensity shower rain": "/src/assets/weather-icons/rain.svg",
+  "heavy intensity shower rain": "/src/assets/weather-icons/rain.svg",
+  "ragged shower rain": "/src/assets/weather-icons/rain.svg",
+  "thunderstorm": "/src/assets/weather-icons/thunderstorms.svg",
+  "thunderstorm with light rain": "/src/assets/weather-icons/thunderstorms.svg",
+  "thunderstorm with rain": "/src/assets/weather-icons/thunderstorms.svg",
+  "thunderstorm with heavy rain": "/src/assets/weather-icons/thunderstorms.svg",
+  "light thunderstorm": "/src/assets/weather-icons/thunderstorms.svg",
+  "heavy thunderstorm": "/src/assets/weather-icons/thunderstorms.svg",
+  "ragged thunderstorm": "/src/assets/weather-icons/thunderstorms.svg",
+  "thunderstorm with light drizzle": "/src/assets/weather-icons/thunderstorms.svg",
+  "thunderstorm with drizzle": "/src/assets/weather-icons/thunderstorms.svg",
+  "thunderstorm with heavy drizzle": "/src/assets/weather-icons/thunderstorms.svg",
+  "snow": "/src/assets/weather-icons/snow.svg",
+  "light snow": "/src/assets/weather-icons/snow.svg",
+  "heavy snow": "/src/assets/weather-icons/snow.svg",
+  "sleet": "/src/assets/weather-icons/snow.svg", // Closest
+  "light shower sleet": "/src/assets/weather-icons/snow.svg",
+  "shower sleet": "/src/assets/weather-icons/snow.svg",
+  "light rain and snow": "/src/assets/weather-icons/snow.svg",
+  "rain and snow": "/src/assets/weather-icons/snow.svg",
+  "light shower snow": "/src/assets/weather-icons/snow.svg",
+  "shower snow": "/src/assets/weather-icons/snow.svg",
+  "heavy shower snow": "/src/assets/weather-icons/snow.svg",
+  "mist": "/src/assets/weather-icons/mist.svg",
+  "smoke": "/src/assets/weather-icons/fog.svg", // Closest
+  "haze": "/src/assets/weather-icons/fog.svg", // Closest
+  "sand/dust whirls": "/src/assets/weather-icons/fog.svg", // Closest
+  "fog": "/src/assets/weather-icons/fog.svg",
+  "sand": "/src/assets/weather-icons/fog.svg", // Closest
+  "dust": "/src/assets/weather-icons/fog.svg", // Closest
+  "volcanic ash": "/src/assets/weather-icons/fog.svg", // Closest
+  "squalls": "/src/assets/weather-icons/thunderstorms.svg", // Closest
+  "tornado": "/src/assets/weather-icons/thunderstorms.svg", // Closest
+};
 
 function App() {
   const [city, setCity] = useState("");
@@ -24,6 +74,8 @@ function App() {
   const [favorites, setFavorites] = useState(JSON.parse(localStorage.getItem("favorites")) || []);
   const [recent, setRecent] = useState(JSON.parse(localStorage.getItem("recent")) || ["London", "New York", "Tokyo", "Paris", "Dubai"]);
   const [aqi, setAqi] = useState(null);
+  const [alerts, setAlerts] = useState([]);
+  const [uvIndex, setUvIndex] = useState(null);
   const [recentIndex, setRecentIndex] = useState(0);
   const [showFavorites, setShowFavorites] = useState(false);
   const [showNavMenu, setShowNavMenu] = useState(false);  // navbar k lie
@@ -31,8 +83,36 @@ function App() {
 
   const [hourlyCarouselOffset, setHourlyCarouselOffset] = useState(0);
   const hourlyScrollRef = useRef(null); // Ref for the hourly-scroll container
+  const searchBoxRef = useRef(null); // Ref for the search box
+  const favoritesDropdownRef = useRef(null); // Ref for the favorites dropdown
 
   const API_KEY = import.meta.env.VITE_API_KEY;
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (searchBoxRef.current && !searchBoxRef.current.contains(event.target)) {
+        setSuggestions([]);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [searchBoxRef]);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (favoritesDropdownRef.current && !favoritesDropdownRef.current.contains(event.target)) {
+        setShowFavorites(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [favoritesDropdownRef]);
 
   const handleNextRecent = () => {
     setRecentIndex((prevIndex) => (prevIndex + 1) % recent.length);
@@ -55,14 +135,12 @@ function App() {
   };
 
   const getWeatherIcon = (description) => {
-    const desc = description.toLowerCase();
-    if (desc.includes("clear")) return <WiDaySunny size={60} className="icon-clear" />;
-    if (desc.includes("cloud")) return <WiCloud size={60} className="icon-cloud" />;
-    if (desc.includes("rain")) return <WiRain size={60} className="icon-rain" />;
-    if (desc.includes("snow")) return <WiSnow size={60} className="icon-snow" />;
-    if (desc.includes("thunder")) return <WiThunderstorm size={60} className="icon-thunder" />;
-    if (desc.includes("fog") || desc.includes("mist")) return <WiFog size={60} className="icon-fog" />;
-    return <WiDaySunny size={60} className="icon-clear" />;
+    const iconPath = weatherIconMap[description.toLowerCase()];
+    if (iconPath) {
+      return <img src={iconPath} alt={description} style={{ width: 60, height: 60 }} />;
+    }
+    // Fallback icon if description not found in map
+    return <img src="/src/assets/weather-icons/clear-day.svg" alt="default weather icon" style={{ width: 60, height: 60 }} />;
   };
 
   const getWindDirection = (deg) => {
@@ -82,7 +160,24 @@ function App() {
     return "🌈 Have a nice day!";
   };
 
+  const getUvIndexDescription = (uv) => {
+    if (uv === null) return "N/A";
+    if (uv <= 2) return "Low";
+    if (uv <= 5) return "Moderate";
+    if (uv <= 7) return "High";
+    if (uv <= 10) return "Very High";
+    return "Extreme";
+  };
 
+  const getAqiDescription = (aqi) => {
+    if (aqi === null) return "N/A";
+    if (aqi === 1) return "Good";
+    if (aqi === 2) return "Fair";
+    if (aqi === 3) return "Moderate";
+    if (aqi === 4) return "Poor";
+    if (aqi === 5) return "Very Poor";
+    return "N/A";
+  };
 
   const fetchWeatherByCoords = async (lat, lon) => {
     setLoading(true);
@@ -96,6 +191,8 @@ function App() {
         setWeather(data);
         fetchAQI(lat, lon);
         fetchForecast(lat, lon);
+        fetchAlerts(lat, lon);
+        fetchUvIndex(lat, lon);
       }
     } catch {
       setError("Something went wrong.");
@@ -114,6 +211,40 @@ function App() {
     } catch {
       console.log("AQI fetch error");
       setAqi(null);
+    }
+  };
+
+  const fetchAlerts = async (lat, lon) => {
+    try {
+      const res = await fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude=current,minutely,hourly,daily&appid=${API_KEY}`);
+      const data = await res.json();
+      if (data.alerts) {
+        setAlerts(data.alerts);
+      } else {
+        setAlerts([]);
+      }
+    } catch (err) {
+      console.log("Alerts fetch error", err);
+      setAlerts([]);
+    }
+  };
+
+  const fetchUvIndex = async (lat, lon) => {
+    console.log("Fetching UV Index for:", lat, lon);
+    try {
+      const res = await fetch(`https://currentuvindex.com/api/v1/uvi?latitude=${lat}&longitude=${lon}`);
+      const data = await res.json();
+      console.log("UV Index API Response:", JSON.stringify(data, null, 2));
+      if (data && data.now && data.now.uvi !== undefined) {
+        setUvIndex(data.now.uvi);
+        console.log("UV Index set to:", data.now.uvi);
+      } else {
+        setUvIndex(null);
+        console.log("UV Index data not found in response.");
+      }
+    } catch (err) {
+      console.log("UV Index fetch error", err);
+      setUvIndex(null);
     }
   };
 
@@ -144,6 +275,8 @@ function App() {
         setWeather(data);
         fetchForecast(data.coord.lat, data.coord.lon);
         fetchAQI(data.coord.lat, data.coord.lon);
+        fetchAlerts(data.coord.lat, data.coord.lon);
+        fetchUvIndex(data.coord.lat, data.coord.lon);
         setError("");
         const updated = [cityName, ...recent.filter((r) => r.toLowerCase() !== cityName.toLowerCase())].slice(0, 10);
         setRecent(updated);
@@ -210,8 +343,17 @@ function App() {
 
   const getLocalTime = (timezone) => {
     if (timezone === undefined) return "";
-    const localDate = new Date(new Date().getTime() + timezone * 1000);
-    return localDate.toUTCString().slice(17, 22);
+    const date = new Date();
+    const localDate = new Date(date.getTime() + timezone * 1000 + date.getTimezoneOffset() * 60 * 1000);
+    const options = {
+      weekday: 'short', // e.g., "Mon"
+      month: 'short',   // e.g., "Oct"
+      day: 'numeric',   // e.g., "25"
+      hour: '2-digit',  // e.g., "02"
+      minute: '2-digit',// e.g., "00"
+      hour12: true      // e.g., "AM/PM"
+    };
+    return localDate.toLocaleDateString('en-US', options);
   };
 
   const formatUnixToLocalTime = (unixTimestamp, timezoneOffsetSeconds) => {
@@ -322,76 +464,232 @@ function App() {
 
 
       <div className="hero-section">
-        <div className="hero-controls">
-
-          <div className="search-box">
-            <div className="search-bar">
-              <input
-                type="text"
-                placeholder="Enter city name..."
-                value={city}
-                onChange={(e) => setCity(e.target.value)}
-                onKeyDown={(e) => e.key === "Enter" && fetchWeatherByCity()}
-              />
-              <button onClick={() => fetchWeatherByCity()}>
-                <FaSearch />
-              </button>
-            </div>
-            {suggestions.length > 0 && (
-              <ul className="suggestions">
-                {suggestions.map((s, i) => (
-                  <li key={i} onClick={() => fetchWeatherByCity(s.name)}>
-                    {s.name}, {s.country}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
-
-          <div className="unit-toggle">
-            <span className={`unit ${unit === 'metric' ? 'active' : ''}`} onClick={() => setUnit('metric')}>°C</span>
-            <label className="switch">
-              <input type="checkbox" onChange={toggleUnit} checked={unit === 'imperial'} />
-              <span className="slider round"></span>
-            </label>
-            <span className={`unit ${unit === 'imperial' ? 'active' : ''}`} onClick={() => setUnit('imperial')}>°F</span>
-          </div>
-
-
-
-          {recent.length > 0 && (
-            <div className="recent-carousel">
-              <button onClick={handlePrevRecent} disabled={recent.length <= 1}><FaChevronLeft /></button>
-              <div className="recent-cities">
-                <span onClick={() => fetchWeatherByCity(recent[recentIndex])}>{recent[recentIndex]}</span>
+        <div className="hero-controls-parent">
+          <div className="search-toggle-container">
+            <div className="search-unit-container">
+              <div className="search-box" ref={searchBoxRef}>
+                <div className="search-bar">
+                  <input
+                    type="text"
+                    placeholder="Enter city name..."
+                    value={city}
+                    onChange={(e) => setCity(e.target.value)}
+                    onKeyDown={(e) => e.key === "Enter" && fetchWeatherByCity()}
+                  />
+                  <button onClick={() => fetchWeatherByCity()}>
+                    <FaSearch />
+                  </button>
+                </div>
+                {suggestions.length > 0 && (
+                  <ul className="suggestions">
+                    {suggestions.map((s, i) => (
+                      <li key={i} onClick={() => fetchWeatherByCity(s.name)}>
+                        {s.name}, {s.country}
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </div>
-              <button onClick={handleNextRecent} disabled={recent.length <= 1}><FaChevronRight /></button>
-            </div>
-          )}
 
-          <div className="favorites-dropdown">
-            <button onClick={() => setShowFavorites(!showFavorites)}>
-              <FaStar /> Favorites <FaCaretDown />
-            </button>
-            {showFavorites && (
-              <ul className="favorites-list">
-                {favorites.length > 0 ? favorites.map((fav) => (
-                  <li key={fav} onClick={() => { fetchWeatherByCity(fav); setShowFavorites(false); }}>
-                    {fav}
-                  </li>
-                )) : <li>No favorites added</li>}
-              </ul>
+              <div className="unit-toggle">
+                <span className={`unit ${unit === 'metric' ? 'active' : ''}`} onClick={() => setUnit('metric')}>°C</span>
+                <label className="switch">
+                  <input type="checkbox" onChange={toggleUnit} checked={unit === 'imperial'} />
+                  <span className="slider round"></span>
+                </label>
+                <span className={`unit ${unit === 'imperial' ? 'active' : ''}`} onClick={() => setUnit('imperial')}>°F</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="recent-favorites-container">
+            {recent.length > 0 && (
+              <div className="recent-carousel">
+                <button onClick={handlePrevRecent} disabled={recent.length <= 2}>
+                  <FaChevronLeft />
+                </button>
+
+                <div className="recent-cities">
+                  {recent.slice(recentIndex, recentIndex + 2).map((city, index) => (
+                    <span
+                      key={index}
+                      onClick={() => fetchWeatherByCity(city)}
+                      style={{ marginRight: "10px", cursor: "pointer" }}
+                    >
+                      {city}
+                    </span>
+                  ))}
+                </div>
+
+                <button onClick={handleNextRecent} disabled={recent.length <= 2}>
+                  <FaChevronRight />
+                </button>
+              </div>
             )}
+
+
+            <div className="favorites-dropdown" ref={favoritesDropdownRef}>
+              <button onClick={() => setShowFavorites(!showFavorites)}>
+                <FaStar /> Favorites <FaCaretDown />
+              </button>
+              {showFavorites && (
+                <ul className="favorites-list">
+                  {favorites.length > 0 ? favorites.map((fav) => (
+                    <li key={fav} onClick={() => { fetchWeatherByCity(fav); setShowFavorites(false); }}>
+                      {fav}
+                    </li>
+                  )) : <li>No favorites added</li>}
+                </ul>
+              )}
+            </div>
           </div>
         </div>
       </div>
       {loading && <p className="loading-text">Loading...</p>}
       {error && <p className="error-text">{error}</p>}
 
+      {alerts.length > 0 && (
+        <div className="weather-alerts">
+          <h3>Severe Weather Alerts</h3>
+          {alerts.map((alert, index) => (
+            <div key={index} className="alert-card">
+              <h4>{alert.event}</h4>
+              <p><strong>Sender:</strong> {alert.sender_name}</p>
+              <p>{alert.description}</p>
+              <p><em>Starts: {new Date(alert.start * 1000).toLocaleString()}</em></p>
+              <p><em>Ends: {new Date(alert.end * 1000).toLocaleString()}</em></p>
+            </div>
+          ))}
+        </div>
+      )}
 
 
 
 
+
+      <ThreeColumnLayout
+        weatherCard={
+          weather && (
+
+            <div className="weather-card">
+              <div className="city-head">
+                <div className="city-header">
+                  <div className="city-info-left">
+                    <h2 className="city-name" style={{ marginRight: '10px' }}>{weather.name}</h2>
+                  </div>
+                  <p className="time"> {getLocalTime(weather.timezone)}</p>
+                </div>
+              </div>
+              <div className="temp-icon-row">
+                {getWeatherIcon(weather.weather[0].description)}
+                <p className="temp">{Math.round(weather.main.temp)}°{unit === 'metric' ? 'C' : 'F'}</p>
+              </div>
+              <p className="details">{weather.weather[0].description}</p>
+
+              <div className="extra-info">
+                <p>Feels like: {Math.round(weather.main.feels_like)}°</p>
+                <p>Humidity: {weather.main.humidity}%</p>
+                <p>Wind: {weather.wind.speed} {unit === 'metric' ? 'm/s' : 'mph'}</p>
+                {weather.wind.deg !== undefined && <p>Direction: {getWindDirection(weather.wind.deg).text}</p>}
+                {/* <p>Local Time: {getLocalTime(weather.timezone)}</p> */}
+                {weather.sys && weather.sys.sunrise && <p>Sunrise: {formatUnixToLocalTime(weather.sys.sunrise, weather.timezone)}</p>}
+                {weather.sys && weather.sys.sunset && <p>Sunset: {formatUnixToLocalTime(weather.sys.sunset, weather.timezone)}</p>}
+                {aqi && <p>AQI: {aqi} ({getAqiDescription(aqi)})</p>}
+                {uvIndex !== null && <p>UV Index: {uvIndex} ({getUvIndexDescription(uvIndex)})</p>}
+              </div>
+              <button className="fav-btn fav-btn-bottom" onClick={() => toggleFavorite(weather.name)}>
+                {favorites.includes(weather.name) ? "❤️" : "🤍"}
+              </button>
+            </div>
+          )
+        }
+        weatherRadar={
+          <div className="weather-radar">
+            {weather && weather.coord && (
+              <WeatherMap
+                lat={weather.coord.lat}
+                lon={weather.coord.lon}
+                apiKey={API_KEY}
+                cityName={weather.name}
+              />
+            )}
+          </div>
+        }
+        adCarousel={
+          <div className="ad-carousel">
+            <div className="ad-carousel-track">
+              <div className="ad-carousel-item">Item 1</div>
+              <div className="ad-carousel-item">Item 2</div>
+              <div className="ad-carousel-item">Item 3</div>
+              <div className="ad-carousel-item">Item 4</div>
+              <div className="ad-carousel-item">Item 5</div>
+              <div className="ad-carousel-item">Item 6</div>
+              <div className="ad-carousel-item">Item 7</div>
+              <div className="ad-carousel-item">Item 8</div>
+              <div className="ad-carousel-item">Item 9</div>
+              <div className="ad-carousel-item">Item 10</div>
+            </div>
+          </div>
+        }
+      />
+
+      {hourlyForecast.length > 0 && (
+        <div id="hourly-section" className="hourly-ad-section">
+          <div className="hourly-carousel-wrapper">
+            <h3>Next 24 Hours</h3>
+            <div className="hourly-carousel-controls">
+              <button onClick={handlePrevHourly}>
+                <FaChevronLeft />
+              </button>
+              <div className="hourly-scroll-container">
+                <div className="hourly-scroll" ref={hourlyScrollRef} style={{ transform: `translateX(${hourlyCarouselOffset}px)` }}>
+                  {hourlyForecast.map((hour, idx) => (
+                    <div key={idx} className="hour-card">
+                      <p>{new Date(hour.dt_txt).getHours()}:00</p>
+                      {getWeatherIcon(hour.weather[0].description)}
+                      <p>{Math.round(hour.main.temp)}°</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <button onClick={handleNextHourly}>
+                <FaChevronRight />
+              </button>
+            </div>
+          </div>
+          <div className="ad-container">
+            <h4>Advertisement</h4>
+            <p>Your ad content here!</p>
+          </div>
+        </div>
+      )}
+
+      {forecast.length > 0 && (
+        <div id="forecast-section" className="forecast-grid">
+          {forecast.map((day, idx) => (
+            <div key={idx} className="forecast-card">
+              <p>{new Date(day.dt_txt).toLocaleDateString("en-US", { weekday: "short" })}</p>
+              {getWeatherIcon(day.weather[0].description)}
+              <p className="temp">{Math.round(day.main.temp)}°</p>
+              <p className="details">{day.weather[0].description}</p>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {forecast.length > 0 && (
+        <div id="trend-section" className="chart-section">
+          <h3>7-Day Temperature Trend</h3>
+          <ResponsiveContainer width="100%" height={250}>
+            <LineChart data={forecast.map(d => ({ ...d, temp: d.main.temp }))}>
+              <XAxis dataKey="dt_txt" tickFormatter={(str) => new Date(str).toLocaleDateString("en-US", { weekday: 'short' })} />
+              <Tooltip />
+              <Line type="monotone" dataKey="temp" stroke="#1E90FF" strokeWidth={3} dot={{ r: 5 }} />
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
+      )}
+      <Footer />
     </div>
   );
 }

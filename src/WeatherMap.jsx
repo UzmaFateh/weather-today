@@ -46,7 +46,6 @@ const WeatherMap = ({ lat, lon, apiKey, cityName }) => {
 
     return (
         <div className="map-wrapper">
-            {/* <h9 className="map-title">⚡ Live Rainviewer Radar </h9> */}
             <MapContainer 
             
                 center={position} 
@@ -70,6 +69,22 @@ const WeatherMap = ({ lat, lon, apiKey, cityName }) => {
                     zIndex={5} // Sabse upar dikhega
                 />
 
+                {/* OpenWeatherMap Temperature Layer */}
+                <TileLayer
+                    url={`https://tile.openweathermap.org/map/temp_new/{z}/{x}/{y}.png?appid=6613a7a814f754f96ca9856c4ef11ed4`}
+                    opacity={0.5} // Adjust opacity as needed
+                    zIndex={6} // Higher zIndex to appear above radar
+                    attribution='&copy; <a href="https://openweathermap.org">OpenWeatherMap</a>'
+                />
+
+                {/* OpenWeatherMap Wind Speed Layer */}
+                <TileLayer
+                    url={`https://tile.openweathermap.org/map/wind_new/{z}/{x}/{y}.png?appid=6613a7a814f754f96ca9856c4ef11ed4`}
+                    opacity={0.5} // Adjust opacity as needed
+                    zIndex={7} // Even higher zIndex
+                    attribution='&copy; <a href="https://openweathermap.org">OpenWeatherMap</a>'
+                />
+
                 {/* Marker at the current location */}
                 <Marker position={position} icon={customMarkerIcon}>
                     <Tooltip>
@@ -79,7 +94,6 @@ const WeatherMap = ({ lat, lon, apiKey, cityName }) => {
                 </Marker>
 
             </MapContainer>
-            {/* <p className="map-note">Map ko zoom in aur zoom out karke barish ki sahi sthiti dekhen.</p> */}
         </div>
     );
 };

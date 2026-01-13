@@ -1,0 +1,72 @@
+.app-footer {
+  display: flex;
+  justify-content: space-between; /* Pushes items to the ends */
+  align-items: center; /* Vertically center items */
+  padding: 0.3rem 1rem; /* Add horizontal padding */
+  background: transparent;
+  color: white;
+  background: rgb(92, 198, 240);
+}
+
+.footer-copyright {
+  flex: 1; /* Take up available space */
+  text-align: left;
+}
+
+.footer-links {
+  flex: 2; /* Take up more space */
+  display: flex;
+  justify-content: center; /* Center the links */
+  gap: 1rem; /* Space between the links */
+}
+
+.footer-links a {
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: #eee;
+}
+
+.footer-back-to-top {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.back-to-top {
+  background-color: #333;
+  color: white;
+  width: 40px; /* Make it square */
+  height: 40px; /* Make it square */
+  border: none;
+  border-radius: 50%; /* Make it round */
+  cursor: pointer;
+  font-size: 1.2rem; /* Increase font size for the arrow */
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Center vertically */
+  transition: background-color 0.3s ease;
+}
+
+.back-to-top:hover {
+  background-color: #555;
+}
+
+@media (max-width: 426px) {
+  .app-footer {
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem;
+  }
+
+  .footer-copyright,
+  .footer-links,
+  .footer-back-to-top {
+    flex: unset;
+    text-align: center;
+    justify-content: center;
+  }
+}

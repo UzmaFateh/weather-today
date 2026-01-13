@@ -1,77 +1,153 @@
-
 .three-column-layout {
   display: grid;
-  grid-template-columns: 1fr 56% 15%; /* Weather Card, Weather Radar (45%), Ad Carousel (15%) */
-  gap: 1rem;
+  grid-template-columns: 2fr 30% 30%;
+  /* Weather Card, Weather Radar (30%), Ad Carousel (25%) */
+  gap: 0.5rem;
   margin: 2rem auto;
-  max-width: 90%;
-  align-items: stretch; /* Ensure all items stretch to the same height */
- 
 
-}
-
-/* .weather-radar { */
-  /* background: rgba(40, 40, 40, 0.8); */
-  /* padding: 1.5rem; */
-  /* border-radius: 16px; */
-  /* height: 100%; */
-   /* Make the components take the full height of the grid row */
-/* } */
-
-.ad-carousel {
-  background: gray;
-  /* padding: 1.5rem; */
-  border-radius: 16px;
-  height: 100%; /* Make the components take the full height of the grid row */
-  overflow: hidden;
-  position: relative;
-}
-
-.ad-carousel-track {
-  display: flex;
-  flex-direction: column;
-  animation: scroll-up 20s linear infinite;
-  position: absolute;
-  top: 0;
-  width: 100%;
-}
-
-.ad-carousel-item {
+  max-width: 94%;
   background: transparent;
-  padding: 1rem;
-  border-radius: 12px;
-  margin-bottom: 1rem;
-  text-align: center;
-}
+ /* border-radius: 2%; */
 
-@keyframes scroll-up {
-  0% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(-100%);
-  }
-}
-
-
-
-
-.three-column-layout {
-  display: grid;
-  grid-template-columns: 1fr 56% 15%; /* Laptop/Desktop layout */
-  gap: 1rem;
-  margin: 2rem auto;
-  max-width: 90%;
+  /* box-shadow: 0 4px 20px rgba(0,0,0,0.5); */
   align-items: stretch;
+  /* Ensure all items stretch to the same height */
+
+
 }
 
-/* Ad Carousel Style */
-.ad-carousel {
-  background: gray;
+
+/* Weather Card */
+.weather-card {
+  padding: 3rem;
   border-radius: 16px;
+  max-width: 70%;
+   /*ye card ki width ko barhaeyga*/
+   margin:0.1rem auto;
+   
+  
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* align-items: flex-start; */   /* Align items to the left */
+  /* gap: 0.5rem; */
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+ 
+}
+/* .weather-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  justify-content: space-between;
+
+} */
+
+.city-head{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.city-header {
+  display: flex;
+  align-items: center;
+}
+
+.city-name {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.fav-btn {
+  background: transparent;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-left: 0.5rem;
+  margin-top: 0;
+}
+
+.time {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.7);
+ 
+}
+
+.temp-icon-row {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.temp-icon-row .temp {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.weather-card .details {
+  color:white;
+  font-size: 1rem;
+  text-align: center;
+  width: 100%;
+  margin-top: 0.2rem;
+}
+
+.extra-info {
+  text-align: left;
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+
+.extra-info p {
+  margin: 0; /* Remove default paragraph margins */
+}
+
+
+
+
+/* .ad-carousel-item */
+
+
+
+
+.fav-btn-bottom {
+  margin-top: 10px;
+
+
+  /* Add some space from the content above */
+}
+
+.weather-radar {
   height: 100%;
+  margin: auto;
+  width: 100%;
+  
+  
+  
+}
+
+.ad-carousel {
+background: transparent;
+/* margin: 1rem 2rem; */
+padding: 1rem;
+
+  border-radius: 10px;
+  /* height: 100%; */
+  /* Make the components take the full height of the grid row */
   overflow: hidden;
   position: relative;
+ 
 }
 
 .ad-carousel-track {
@@ -88,73 +164,199 @@
   padding: 1rem;
   border-radius: 12px;
   margin-bottom: 1rem;
+  width: 80%;
   text-align: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
 }
+
 
 @keyframes scroll-up {
   0% {
     transform: translateY(0);
   }
+
   100% {
     transform: translateY(-100%);
   }
 }
 
 /* ✅ MOBILE VIEW (sirf ThreeColumnLayout ke liye) */
-@media (max-width: 768px) {
+/* ✅ MOBILE VIEW (sirf ThreeColumnLayout ke liye) */
 
-
-
-  .weather-card{
-    width: 80%;
+@media (max-width: 900px) {
+.three-column-layout {
+  display: flex;
+justify-content: space-around;
+flex-wrap: wrap;
+width: 100%;
+    
   }
-  .three-column-layout {
-    grid-template-columns: 1fr; /* 1 column */
-    max-width: 90%; /* fullscreen width */
+
+  .weather-card {
+    width: 45%;
+    /* Set width to 98% */
+    margin: 1rem auto;
+ 
+    /* Center the card horizontally */
+  }
+
+
+
+
+
+
+  .weather-radar {
+    width: 65%;
+    /* Set width to 98% */
+    margin: 0 auto;
+    margin-bottom: 1rem;
+    /* Center the radar horizontally */
+  }
+
+  .ad-carousel {
+    width: 70%;
+   
+    margin: 0 auto;
+    /* Center the carousel horizontally */
+    height: 200px;
+  }
+
+
+
+
+}
+
+
+ @media (max-width: 786px) {
+.three-column-layout {
+  grid-template-columns: 1fr;
+    /* 1 column */
+    width: 98%;
+    /* Set width to 98% */
+     margin: 0 auto;
+    /* Center the layout */
+    padding: 0 1rem;
+    /* Add horizontal padding */
+    
+  }
+
+  .weather-card {
+    width: 94%;
+    /* Set width to 98% */
+    margin: 1rem auto;
+ 
+    /* Center the card horizontally */
+  }
+
+
+
+
+
+
+  .weather-radar {
+    width: 98%;
+    /* Set width to 98% */
+    margin: 0 auto;
+    margin-bottom: 1rem;
+    /* Center the radar horizontally */
+  }
+
+  .ad-carousel {
+    width: 98%;
+    /* Set width to 98% */
+    margin: 0 auto;
+    /* Center the carousel horizontally */
   }
 
   .ad-carousel-track {
-    flex-direction: row; /* vertical → horizontal */
-    animation: scroll-up 0s linear infinite; /* autoplay band */
+    flex-direction: row;
+    animation: scroll-up 0s linear infinite;
     position: relative;
     overflow-x: auto;
     width: auto;
   }
 
   .ad-carousel-item {
-    min-width: 20%; /* har ad horizontally scrollable */
-    margin-right: 1rem;
+    min-width: 30%;
+    /* har ad horizontally scrollable */
+ 
+    margin: 1rem ;
   }
 }
 
 
 @media (max-width: 425px) {
-
-
-
-  .weather-card{
-    width: 100%;
-  }
   .three-column-layout {
-    grid-template-columns: 1fr; /* 1 column */
-    max-width: 100%; /* fullscreen width */
+    grid-template-columns: 1fr;
+    /* 1 column */
+    width: 100%;
+    /* Set width to 100% */
+    /* margin: 0 auto; */
+    /* Center the layout */
+    padding: 0 1rem;
+    /* Add horizontal padding */
+  }
+
+  .weather-card {
+    width: 90%;
+    /* Set width to 98% */
+    margin:  auto;
+    margin-top: 1.5rem;
+    /* Center the card horizontally */
+  }
+
+  .weather-radar {
+    width: 98%;
+    /* Set width to 98% */
+    margin: 0 auto;
+    /* Center the radar horizontally */
+  }
+
+  .ad-carousel {
+    width: 100%;
+    /* Set width to 98% */
+    margin: 0 auto;
+    /* Center the carousel horizontally */
+    height: 214px;
+    overflow-y: auto; /* Enable vertical scrolling */
   }
 
   .ad-carousel-track {
-    flex-direction: column; /* vertical → horizontal */
-    animation: scroll-up 0s linear infinite; /* autoplay band */
+    flex-direction: column;
+    /* vertical → horizontal */
+    animation: scroll-up 0s linear infinite;
+    /* autoplay band */
     position: relative;
-    overflow-x: auto;
+    /* overflow-x: auto; */ /* Removed as parent handles scrolling */
     width: auto;
-    height:200px ;
   }
 
   .ad-carousel-item {
-    min-width: 90%; /* har ad horizontally scrollable */
-    
-    margin-right: 1rem;
+    min-width: 84%;
+    /* har ad horizontally scrollable */
+
+    /* margin-right: 1rem; */
+    margin: 0.5rem;
   }
 }
 
 
 
+.city-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* Vertically align items */
+  width: 100%;
+  /* Ensure it takes full width */
+  padding-bottom: 10px;
+  /* Add some vertical spacing */
+}
+
+.city-info-left {
+  display: flex;
+  align-items: center;
+  /* Vertically align city name and favorite button */
+  gap: 10px;
+  /* Space between city name and favorite button */
+}

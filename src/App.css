@@ -1,14 +1,18 @@
+
+
+
 /* 🌎 NAVBAR STYLES */
+
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: black;
+  background: rgb(92, 198, 240);
   backdrop-filter: blur(10px);
-  color: white;
+  /* color: white; */
   
-  padding: 12px 20px;
-  border-radius: 12px;
+  padding: 6px 20px;
+  /* border-radius: 12px; */
 
   font-weight: 500;
   position: sticky;
@@ -57,25 +61,30 @@
   position: absolute;
   top: 60px;
   right: 20px;
-  background: rgba(0, 0, 0, 0.85);
+  /* background: rgba(0, 0, 0, 0.85); */
+  background-color: white;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
   border-radius: 8px;
   padding: 10px 0;
   display: flex;
   flex-direction: column;
   width: 150px;
   animation: fadeIn 0.3s ease-in-out;
+  
 }
 
 .navbar-dropdown p {
-  color: #fff;
+  /* color: #fff; */
   padding: 10px 15px;
   margin: 0;
   cursor: pointer;
   transition: background 0.3s;
 }
 
+
+
 .navbar-dropdown p:hover {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(193, 189, 189, 0.15);
 }
 
 /* Responsive behavior */
@@ -110,21 +119,79 @@
   display: flex;
   justify-content: center;
   width: 100%;
-  padding: 8px;
-  color: #fff;
-  background-color: rgb(31, 98, 76);
+  padding: 2px 2%;
+  /* color: #fff; */
+
+  /* background-color: rgb(31, 98, 76); */
+  background: rgb(66, 65, 65);
   box-sizing: border-box;
   
 }
 
-.hero-controls {
+/* Severe Weather Alerts */
+.weather-alerts {
+  max-width: 90%;
+  margin: 2rem auto;
+  background: rgba(255, 99, 71, 0.8); /* Tomato color for alerts */
+  padding: 1.5rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  color: white;
+}
+
+.weather-alerts h3 {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+  color: #fff;
+}
+
+.alert-card {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 1rem;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.alert-card h4 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+  color: #FFD700; /* Gold color for alert event */
+}
+
+.alert-card p {
+  margin: 0.3rem 0;
+  font-size: 0.9rem;
+}
+
+.alert-card em {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.hero-controls-parent {
   display: flex;
-   flex-wrap: wrap;
+  justify-content: center; /* Center the items */
   align-items: center;
-  justify-content:space-around ;
-  gap: 2px;
   width: 100%;
   max-width: 1100px;
+  gap: 1rem;   /* Add gap between the two main containers */
+}
+
+.search-toggle-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex: 2; /* Give more space to search and toggle */
+}
+
+.recent-favorites-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex: 1.5; /* Increased space for recent and favorites */
 }
 
 /* Each element will flex naturally */
@@ -135,13 +202,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  flex: 1 1 auto; /* ✅ flexible width */
-  min-width: 220px; /* prevents squishing too small */
 }
 
 /* ---------- SEARCH BAR ---------- */
 .search-box {
   position: relative;
+  width: auto; /* Let flex handle the width */
+  /* max-width: 60%; */
+  flex-grow: 1; /* Allow it to grow */
 }
 
 .search-bar {
@@ -178,19 +246,20 @@
 
 /* ---------- UNIT TOGGLE ---------- */
 .unit-toggle {
-  /* display: flex; */
   align-items: center;
   justify-content: center;
-  gap: 4px;
+  gap: 2px;
 }
 
 .unit {
   cursor: pointer;
   opacity: 0.7;
+  color: white;
 }
 
 .unit.active {
   opacity: 1;
+  color: white;
   font-weight: bold;
 }
 
@@ -227,6 +296,7 @@
 
 input:checked + .slider {
   background: #2196f3;
+  color: white;
 }
 
 input:checked + .slider:before {
@@ -238,10 +308,12 @@ input:checked + .slider:before {
   display: flex;
   align-items: center;
   gap: 6px;
-  background: rgba(255, 255, 255, 0.15);
+  /* background: rgba(255, 255, 255, 0.15); */
+  background-color: #2196f3;
   backdrop-filter: blur(8px);
   border-radius: 8px;
   padding: 6px 12px;
+  flex-grow: 1; /* Allow it to grow */
   
 }
 
@@ -249,13 +321,14 @@ input:checked + .slider:before {
   background: transparent;
   border: none;
   color: #fff;
-  font-size: 1.2rem;
+  font-size: 1rem;
   cursor: pointer;
 }
 
 .recent-cities {
   display: flex;
   gap: 4px;
+ 
   justify-content: center;
 }
 
@@ -280,20 +353,49 @@ input:checked + .slider:before {
   color: #fff;
   padding: 8px 12px;
   cursor: pointer;
-  margin-top: 2%;
+  margin-top: 0; /* Removed extra margin */
   
+}
+
+.suggestions {
+  position: absolute;
+  top: 100%; /* Position directly below the search bar */
+  left: 0;
+  width: 95%; /* Take full width of the parent search-box */
+  /* background: rgba(0, 0, 0, 0.85); */
+  background-color: white;
+  color: #000428;
+  list-style: none;
+  padding: 8px 12px;
+  margin: 0.1rem auto;
+  border-radius:  8px; /* Rounded corners only at the bottom */
+  z-index: 100;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.suggestions li{
+  padding: 2px;
+  border-radius: 4px;
+}
+
+.suggestions li:hover {
+  background: #c1bcbc; /* Light grey hover for white background */
 }
 
 .favorites-list {
   position: absolute;
-  top: 45px;
-  right: 0;
-  background: rgba(0,0,0,0.85);
+  top: 100%; /* Position directly below the button */
+  left: 0;
+  width: 100%; /* Match button width */
+  background-color: white;
+  color: #000428; /* Dark text for white background */
   list-style: none;
   padding: 8px 0;
   margin: 0;
   border-radius: 8px;
-  width: 160px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
   z-index: 100;
 }
 
@@ -304,277 +406,511 @@ input:checked + .slider:before {
 }
 
 .favorites-list li:hover {
-  background: rgba(255,255,255,0.15);
+  background: #f0f0f0; /* Light grey hover for white background */
+}
+
+
+.search-unit-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex: 1 1 400px; /* Adjust flex properties */
 }
 
 /* ---------- RESPONSIVE TWEAKS ---------- */
 
-/* 📱 Small screens */
-/* @media (max-width: 600px) {
-  .hero-controls {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 12px;
+@media (max-width: 769px)  {
+  .hero-section {
+    padding: 1rem; /* Dynamic padding */
   }
 
-  .search-box,
-  .unit-toggle,
+  .hero-controls-parent {
+    flex-direction: column;
+    gap: 1rem; /* Space between the two rows */
+  }
+
+  .search-toggle-container,
+  .recent-favorites-container {
+    width: 100%;
+    justify-content: center;
+    flex: unset; /* Reset flex property */
+  }
+
+    .suggestions{
+width: 94%;
+margin-left: 4px;
+  }
+
+  
+}
+
+@media (max-width: 420px) {
+
+  .navbar h1 {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+  .hero-section {
+    padding: 1rem 1rem;
+  }
+
+  .hero-controls-parent {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+    .search-toggle-container {
+
+      width: 100%;
+
+      flex-direction: row; /* Search bar and toggle in one row */
+
+      justify-content: center;
+
+      gap: 0.2rem;
+
+    }
+
+  .recent-favorites-container {
+    width: 100%;
+    flex-direction: column; /* Recent and favorites stack */
+    gap: 0.5rem;
+    align-items: center;
+  }
+
   .recent-carousel,
   .favorites-dropdown {
-    width: 80%;
+    width: 100%;
     justify-content: center;
   }
 
+      .search-box {
+
+        flex-grow: 1;
+
+        max-width: 80%;
+
+      }
+
   .search-bar input {
+    font-size: 0.8rem;
+  }
+
+  .search-bar button {
+    font-size: 1rem;
+  }
+
+      .suggestions{
+width: 90%;
+margin-left: 2px;
+
+  }
+
+
+
+
+.unit-toggle{
+ 
+  margin-left: -0.5rem;
+}
+
+  .unit {
+   
+    font-size: 0.7rem;
+
+  }
+
+
+
+  .recent-carousel button {
     font-size: 0.9rem;
   }
-} */
 
-/* 💻 Tablets / mid screens */
-/* @media (min-width: 601px) and (max-width: 1000px) {
-  .hero-controls {
-    justify-content: space-evenly;
+  .recent-cities span {
+    font-size: 0.9rem;
   }
 
-  .search-box {
-    flex: 2;
+  .favorites-dropdown button {
+    font-size: 0.9rem;
+    padding: 6px 10px;
   }
-} */
 
+  .favorites-list li {
+    font-size: 0.9rem;
+    padding: 6px 10px;
+  }
 
-
-/* 🌤 HERO SECTION BASE */
-.hero-section {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  padding: 20px;
-  color: #fff;
-  box-sizing: border-box;
+ 
 }
 
-.hero-controls {
+
+
+
+
+
+/* Weather Card */
+/* .weather-card {
+  padding: 1rem;
+  border-radius: 16px;
+
+  width: 50%;   
+  margin: 1rem auto;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
   display: flex;
-  flex-wrap: wrap; /* ✅ allows wrapping */
-  align-items: center;
-  justify-content: center;
-  gap: 15px;
-  width: 100%;
-  max-width: 1200px;
+  flex-direction: column;
+  align-items: flex-start; /* Align items to the left */
+
+  /* background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+
+
 }
 
-/* Each child (4 total) behaves as a responsive flex item */
-.search-box,
-.unit-toggle,
-.recent-carousel,
-.favorites-dropdown {
+.city-head{
   display: flex;
-  align-items: center;
-  justify-content: center;
-  flex: 1 1 22%; /* ✅ About 4 per row (25% - small gap) */
-  min-width: 240px;
-  box-sizing: border-box;
-}
-
-/* ---------- SEARCH BOX ---------- */
-.search-box {
-  position: relative;
-}
-
-.search-bar {
-  display: flex;
-  align-items: center;
-  background: rgba(255,255,255,0.15);
-  backdrop-filter: blur(8px);
-  border-radius: 8px;
-  padding: 6px 10px;
+  justify-content: space-between;
   width: 100%;
 }
 
-.search-bar input {
-  flex: 1;
-  border: none;
-  outline: none;
-  background: transparent;
-  color: #fff;
-  font-size: 1rem;
-  padding: 6px;
+.city-header {
+  display: flex;
+  align-items: center;
 }
 
-.search-bar input::placeholder {
-  color: rgba(255,255,255,0.7);
-}
-
-.search-bar button {
-  background: transparent;
-  border: none;
-  color: #fff;
+.city-name {
   font-size: 1.2rem;
-  cursor: pointer;
+  font-weight: bold;
+  margin: 0;
 }
 
-/* ---------- UNIT TOGGLE ---------- */
-.unit-toggle {
+.fav-btn {
+  background: transparent;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-left: 0.5rem;
+  margin-top: 0;
+}
+
+.time {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.7);
+ 
+}
+
+.temp-icon-row {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.temp-icon-row .temp {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.weather-card .details {
+  color:white;
+  font-size: 1rem;
+  text-align: center;
+  width: 100%;
+  margin-top: 0.2rem;
+}
+
+.extra-info {
+  text-align: left;
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+
+.extra-info p {
+  margin: 0; /* Remove default paragraph margins */
+/* }  */
+ 
+
+
+/* weather radar */
+/* .ad-carousel-item */
+/* .ad-carousel-item{
+  border-radius: 2px;
+   box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+   background: transparent;
+} */
+
+
+
+/* Forecasts */
+.hourly-ad-section {
+  max-width: 90%;
+  margin: 2rem auto;
+  display: flex;
+  gap: 1rem;
+  background: transparent;
+  padding: 1.5rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  flex-wrap: wrap;
+}
+
+.hourly-carousel-wrapper {
+  flex: 1; /* Default to fill available space on small screens */
+   /* Allow flex item to shrink */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 60%;
+}
+
+.hourly-carousel-controls {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.hourly-carousel-controls button {
+  /* background: rgba(60, 60, 60, 0.8); */
+  background-color: white;
+  border: none;
+  color: rgb(92, 198, 240);
+  font-size: 1.5rem;
+  padding: 0.5rem;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.3s;
+  flex-shrink: 0; /* Prevent buttons from shrinking */
+  
+}
+
+.hourly-carousel-controls button:hover {
+  background: rgba(90, 90, 90, 0.8);
+}
+
+.hourly-carousel-controls button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.hourly-scroll-container { /* New container for overflow hidden */
+  flex-grow: 1;
+  overflow: hidden;
+  margin: 0 0.5rem; /* Space between buttons and scroll area */
+
+}
+
+.hourly-scroll {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 0;
+  transition: transform 0.5s ease-in-out; /* Smooth transition for scrolling */
+  width: fit-content; /* Ensure it takes width of all children */
+}
+
+.ad-container {
+  flex: 1; /* Default to fill available space on small screens */
+  background: transparent;
+  padding: 1.5rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 30%;
+  
+}
+
+.ad-container h4 {
+  margin-top: 0;
+  color: #FFD700;
+}
+
+.ad-container p {
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+.forecast-grid, .chart-section {
+  max-width: 90%;
+  margin: 2rem auto;
+  /* background: rgba(40, 40, 40, 0.8); */
+  background-color: transparent;
+   box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+
+  padding: 1.5rem;
+  border-radius: 16px;
+}
+
+/* Historical Weather Section */
+.historical-weather-section {
+  max-width: 90%;
+  margin: 2rem auto;
+  /* background: rgba(40, 40, 40, 0.8); */
+  background-color: transparent;
+  padding: 1.5rem;
+  border-radius: 16px;
+  text-align: center;
+}
+
+.historical-weather-section h3 {
+  margin-top: 0;
+  color: #fff;
+  font-size: 1.8rem;
+}
+
+.historical-weather-section p {
+  color: #ccc;
+  margin-bottom: 1rem;
+}
+
+.date-picker {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.historical-weather-card {
+  margin-top: 1.5rem;
+  /* background: rgba(60, 60, 60, 0.8); */
+  background: transparent;
+  padding: 1.5rem;
+  border-radius: 12px;
+  display: inline-block;
+  min-width: 250px;
+}
+
+.historical-weather-card h4 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: #FFD700;
+}
+
+.historical-weather-content {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 1rem;
 }
 
-.unit {
-  cursor: pointer;
-  opacity: 0.7;
-  transition: 0.3s;
-}
-
-.unit.active {
-  opacity: 1;
+.historical-weather-content .temp {
+  font-size: 2rem;
   font-weight: bold;
 }
 
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 48px;
-  height: 24px;
+.historical-weather-content .details {
+  font-size: 1rem;
 }
 
-.switch input {
-  opacity: 0;
+@media (max-width: 768px) {
+  .historical-weather-section {
+    padding: 1rem;
+  }
+
+  .historical-weather-card {
+    width: 100%;
+  }
 }
 
-.slider {
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(255,255,255,0.3);
-  border-radius: 34px;
-  transition: 0.4s;
-}
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 18px;
-  width: 18px;
-  left: 3px;
-  bottom: 3px;
+.hourly-scroll .hour-card, .forecast-card {
+  /* background: rgba(60, 60, 60, 0.8); */
+  /* background: transparent; */
   background: white;
-  border-radius: 50%;
-  transition: 0.4s;
+  padding: 1rem;
+  border-radius: 12px;
+  text-align: center;
+  min-width: 120px;
+  flex-shrink: 0; /* Prevent cards from shrinking */
+}
+.forecast-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+}
+.temp {
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
-input:checked + .slider {
-  background: #2196f3;
+/* Icons */
+.icon-clear { color: #FFD700; }
+.icon-cloud { color: #B0C4DE; }
+.icon-rain { color: #1E90FF; }
+.icon-snow { color: #ADD8E6; }
+.icon-thunder { color: #A9A9A9; }
+.icon-fog { color: #D3D3D3; }
+
+/* Backgrounds */
+.app-container {
+  transition: background 0.5s ease-in-out;
+  max-width: 1024px; /* Set maximum width */
+  margin: 0 auto; /* Center horizontally */
+
 }
 
-input:checked + .slider:before {
-  transform: translateX(24px);
+.bg-default {
+  background: linear-gradient(to top, #6a85b6 0%, #bac8e0 100%);
 }
 
-/* ---------- RECENT CAROUSEL ---------- */
-.recent-carousel {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(8px);
-  border-radius: 8px;
-  padding: 6px 12px;
+.bg-clear {
+  background: linear-gradient(to top, #2980b9, #6dd5fa, #ffffff);
 }
 
-.recent-carousel button {
+.bg-cloud {
+  background: linear-gradient(to top, #bdc3c7, #2c3e50);
+}
+
+.bg-rain {
+  background: linear-gradient(to top, #000428, #004e92);
+}
+
+.bg-snow {
+  background: linear-gradient(to top, #e6dada, #274046);
+}
+
+.bg-thunder {
+  background: linear-gradient(to top, #141e30, #243b55);
+}
+
+.bg-fog {
+  background: linear-gradient(to top, #757f9a, #d7dde8);
+}
+
+.app-footer {
+  text-align: center;
+  padding: 0.3rem;
   background: transparent;
+  color: white;
+  background: rgb(92, 198, 240);
+}
+
+.back-to-top {
+  background-color: #333;
+  color: white;
+  padding: 0.5rem 1rem;
   border: none;
-  color: #fff;
-  font-size: 1.2rem;
+  border-radius: 5px;
   cursor: pointer;
+  margin-left: 1rem;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
 }
 
-.recent-cities {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-}
-
-.recent-cities span {
-  cursor: pointer;
-  font-weight: 500;
-}
-
-/* ---------- FAVORITES DROPDOWN ---------- */
-.favorites-dropdown {
-  position: relative;
-}
-
-.favorites-dropdown button {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  background: rgba(255,255,255,0.15);
-  backdrop-filter: blur(8px);
-  border: none;
-  border-radius: 8px;
-  color: #fff;
-  padding: 8px 12px;
-  cursor: pointer;
-}
-
-.favorites-list {
-  position: absolute;
-  top: 45px;
-  right: 0;
-  background: rgba(0,0,0,0.85);
-  list-style: none;
-  padding: 8px 0;
-  margin: 0;
-  border-radius: 8px;
-  width: 160px;
-  z-index: 100;
-}
-
-.favorites-list li {
-  padding: 8px 12px;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-.favorites-list li:hover {
-  background: rgba(255,255,255,0.15);
-}
-
-/* ---------- RESPONSIVE BREAKPOINTS ---------- */
-
-/* 💻 Laptop + Tablet (≥601px): 4 items in one row */
-@media (min-width: 601px) {
-  .search-box,
-  .unit-toggle,
-  .recent-carousel,
-  .favorites-dropdown {
-    flex: 1 1 22%; /* roughly 4 per row */
-  }
-
-  .hero-controls {
-    justify-content: space-between;
-  }
-}
-
-/* 📱 Mobile (≤600px): 2 items per row */
-@media (max-width: 600px) {
-  .search-box,
-  .unit-toggle,
-  .recent-carousel,
-  .favorites-dropdown {
-    flex: 1 1 48%; /* ✅ two per row (roughly half) */
-    min-width: 150px;
-  }
-
-  .hero-controls {
-    gap: 12px;
-    justify-content: center;
-  }
-
-  .search-bar input {
-    font-size: 0.9rem;
-  }
+.back-to-top:hover {
+  background-color: #555;
 }
