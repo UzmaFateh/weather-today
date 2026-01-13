@@ -406,7 +406,11 @@ function App() {
 
       {/* Navbar Section */}
       <nav className="navbar">
-        <h1>🌎 WeatherApp</h1>
+   <div className="logo">
+        <img src="/weather-svgrepo-com.svg" alt="" className="app-logo" />
+          <h1>WeatherApp</h1>
+
+    </div> 
 
         {/* Desktop / Tablet Links */}
         <div className="navbar-links">

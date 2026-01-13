@@ -26,6 +26,15 @@
   margin: 0;
 }
 
+.logo{
+  display: flex;
+}
+
+.app-logo{
+  width: 40px;
+  height: 40px;
+}
+
 /* Desktop/Tablet nav links */
 .navbar-links {
   display: flex;
