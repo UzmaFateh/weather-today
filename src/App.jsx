@@ -13,53 +13,53 @@ import Footer from './Footer';
 
 // Import animated SVG icons
 const weatherIconMap = {
-  "clear sky": "/src/assets/weather-icons/clear-day.svg",
-  "few clouds": "/src/assets/weather-icons/partly-cloudy-day.svg", // Assuming partly cloudy for few clouds
-  "scattered clouds": "/src/assets/weather-icons/cloudy.svg",
-  "broken clouds": "/src/assets/weather-icons/cloudy.svg",
-  "overcast clouds": "/src/assets/weather-icons/cloudy.svg",
-  "shower rain": "/src/assets/weather-icons/rain.svg",
-  "rain": "/src/assets/weather-icons/rain.svg",
-  "light rain": "/src/assets/weather-icons/rain.svg",
-  "moderate rain": "/src/assets/weather-icons/rain.svg",
-  "heavy intensity rain": "/src/assets/weather-icons/rain.svg",
-  "very heavy rain": "/src/assets/weather-icons/rain.svg",
-  "extreme rain": "/src/assets/weather-icons/rain.svg",
-  "freezing rain": "/src/assets/weather-icons/rain.svg", // Closest
-  "light intensity shower rain": "/src/assets/weather-icons/rain.svg",
-  "heavy intensity shower rain": "/src/assets/weather-icons/rain.svg",
-  "ragged shower rain": "/src/assets/weather-icons/rain.svg",
-  "thunderstorm": "/src/assets/weather-icons/thunderstorms.svg",
-  "thunderstorm with light rain": "/src/assets/weather-icons/thunderstorms.svg",
-  "thunderstorm with rain": "/src/assets/weather-icons/thunderstorms.svg",
-  "thunderstorm with heavy rain": "/src/assets/weather-icons/thunderstorms.svg",
-  "light thunderstorm": "/src/assets/weather-icons/thunderstorms.svg",
-  "heavy thunderstorm": "/src/assets/weather-icons/thunderstorms.svg",
-  "ragged thunderstorm": "/src/assets/weather-icons/thunderstorms.svg",
-  "thunderstorm with light drizzle": "/src/assets/weather-icons/thunderstorms.svg",
-  "thunderstorm with drizzle": "/src/assets/weather-icons/thunderstorms.svg",
-  "thunderstorm with heavy drizzle": "/src/assets/weather-icons/thunderstorms.svg",
-  "snow": "/src/assets/weather-icons/snow.svg",
-  "light snow": "/src/assets/weather-icons/snow.svg",
-  "heavy snow": "/src/assets/weather-icons/snow.svg",
-  "sleet": "/src/assets/weather-icons/snow.svg", // Closest
-  "light shower sleet": "/src/assets/weather-icons/snow.svg",
-  "shower sleet": "/src/assets/weather-icons/snow.svg",
-  "light rain and snow": "/src/assets/weather-icons/snow.svg",
-  "rain and snow": "/src/assets/weather-icons/snow.svg",
-  "light shower snow": "/src/assets/weather-icons/snow.svg",
-  "shower snow": "/src/assets/weather-icons/snow.svg",
-  "heavy shower snow": "/src/assets/weather-icons/snow.svg",
-  "mist": "/src/assets/weather-icons/mist.svg",
-  "smoke": "/src/assets/weather-icons/fog.svg", // Closest
-  "haze": "/src/assets/weather-icons/fog.svg", // Closest
-  "sand/dust whirls": "/src/assets/weather-icons/fog.svg", // Closest
-  "fog": "/src/assets/weather-icons/fog.svg",
-  "sand": "/src/assets/weather-icons/fog.svg", // Closest
-  "dust": "/src/assets/weather-icons/fog.svg", // Closest
-  "volcanic ash": "/src/assets/weather-icons/fog.svg", // Closest
-  "squalls": "/src/assets/weather-icons/thunderstorms.svg", // Closest
-  "tornado": "/src/assets/weather-icons/thunderstorms.svg", // Closest
+  "clear sky": "/weather-icons/clear-day.svg",
+  "few clouds": "/weather-icons/partly-cloudy-day.svg", // Assuming partly cloudy for few clouds
+  "scattered clouds": "/weather-icons/cloudy.svg",
+  "broken clouds": "/weather-icons/cloudy.svg",
+  "overcast clouds": "/weather-icons/cloudy.svg",
+  "shower rain": "/weather-icons/rain.svg",
+  "rain": "/weather-icons/rain.svg",
+  "light rain": "/weather-icons/rain.svg",
+  "moderate rain": "/weather-icons/rain.svg",
+  "heavy intensity rain": "/weather-icons/rain.svg",
+  "very heavy rain": "/weather-icons/rain.svg",
+  "extreme rain": "/weather-icons/rain.svg",
+  "freezing rain": "/weather-icons/rain.svg", // Closest
+  "light intensity shower rain": "/weather-icons/rain.svg",
+  "heavy intensity shower rain": "/weather-icons/rain.svg",
+  "ragged shower rain": "/weather-icons/rain.svg",
+  "thunderstorm": "/weather-icons/thunderstorms.svg",
+  "thunderstorm with light rain": "/weather-icons/thunderstorms.svg",
+  "thunderstorm with rain": "/weather-icons/thunderstorms.svg",
+  "thunderstorm with heavy rain": "/weather-icons/thunderstorms.svg",
+  "light thunderstorm": "/weather-icons/thunderstorms.svg",
+  "heavy thunderstorm": "/weather-icons/thunderstorms.svg",
+  "ragged thunderstorm": "/weather-icons/thunderstorms.svg",
+  "thunderstorm with light drizzle": "/weather-icons/thunderstorms.svg",
+  "thunderstorm with drizzle": "/weather-icons/thunderstorms.svg",
+  "thunderstorm with heavy drizzle": "/weather-icons/thunderstorms.svg",
+  "snow": "/weather-icons/snow.svg",
+  "light snow": "/weather-icons/snow.svg",
+  "heavy snow": "/weather-icons/snow.svg",
+  "sleet": "/weather-icons/snow.svg", // Closest
+  "light shower sleet": "/weather-icons/snow.svg",
+  "shower sleet": "/weather-icons/snow.svg",
+  "light rain and snow": "/weather-icons/snow.svg",
+  "rain and snow": "/weather-icons/snow.svg",
+  "light shower snow": "/weather-icons/snow.svg",
+  "shower snow": "/weather-icons/snow.svg",
+  "heavy shower snow": "/weather-icons/snow.svg",
+  "mist": "/weather-icons/mist.svg",
+  "smoke": "/weather-icons/fog.svg", // Closest
+  "haze": "/weather-icons/fog.svg", // Closest
+  "sand/dust whirls": "/weather-icons/fog.svg", // Closest
+  "fog": "/weather-icons/fog.svg",
+  "sand": "/weather-icons/fog.svg", // Closest
+  "dust": "/weather-icons/fog.svg", // Closest
+  "volcanic ash": "/weather-icons/fog.svg", // Closest
+  "squalls": "/weather-icons/thunderstorms.svg", // Closest
+  "tornado": "/weather-icons/thunderstorms.svg", // Closest
 };
 
 function App() {
