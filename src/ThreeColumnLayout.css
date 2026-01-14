@@ -12,6 +12,7 @@
   /* box-shadow: 0 4px 20px rgba(0,0,0,0.5); */
   align-items: stretch;
   /* Ensure all items stretch to the same height */
+    color: #2c3e50;
 
 
 }
@@ -73,7 +74,8 @@
 
 .time {
   font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.7);
+  /* color: rgba(255, 255, 255, 0.7); */
+    color: #2c3e50;
  
 }
 
@@ -92,7 +94,8 @@
 }
 
 .weather-card .details {
-  color:white;
+  /* color:white; */
+    color: #2c3e50;
   font-size: 1rem;
   text-align: center;
   width: 100%;
@@ -186,28 +189,25 @@ padding: 1rem;
 @media (max-width: 900px) {
 .three-column-layout {
   display: flex;
-justify-content: space-around;
-flex-wrap: wrap;
-width: 100%;
-    
-  }
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  padding: 0 1rem;
+  box-sizing: border-box;
+  gap: 1rem;
+}
 
   .weather-card {
     width: 45%;
-    /* Set width to 98% */
+    /* Set width to original */
     margin: 1rem auto;
- 
     /* Center the card horizontally */
   }
 
-
-
-
-
-
   .weather-radar {
     width: 65%;
-    /* Set width to 98% */
+    /* Set width to original */
     margin: 0 auto;
     margin-bottom: 1rem;
     /* Center the radar horizontally */
@@ -215,53 +215,45 @@ width: 100%;
 
   .ad-carousel {
     width: 70%;
-   
     margin: 0 auto;
     /* Center the carousel horizontally */
     height: 200px;
   }
-
-
-
-
 }
 
 
  @media (max-width: 786px) {
 .three-column-layout {
-  grid-template-columns: 1fr;
-    /* 1 column */
-    width: 98%;
-    /* Set width to 98% */
-     margin: 0 auto;
-    /* Center the layout */
-    padding: 0 1rem;
-    /* Add horizontal padding */
-    
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 0 1rem;
+  box-sizing: border-box;
+  gap: 1rem;
+}
 
   .weather-card {
-    width: 94%;
-    /* Set width to 98% */
+    width: 100%;
+    /* Set width to original */
     margin: 1rem auto;
- 
     /* Center the card horizontally */
   }
 
-
-
-
-
-
   .weather-radar {
-    width: 98%;
-    /* Set width to 98% */
+    width: 100%;
+    /* Set width to original */
     margin: 0 auto;
     margin-bottom: 1rem;
     /* Center the radar horizontally */
   }
+}
 
-  .ad-carousel {
+
+
+ @media (max-width: 900px) {
+
+    .ad-carousel {
     width: 98%;
     /* Set width to 98% */
     margin: 0 auto;
@@ -279,42 +271,39 @@ width: 100%;
   .ad-carousel-item {
     min-width: 30%;
     /* har ad horizontally scrollable */
- 
+
     margin: 1rem ;
   }
-}
-
+ }
 
 @media (max-width: 425px) {
   .three-column-layout {
-    grid-template-columns: 1fr;
-    /* 1 column */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 100%;
-    /* Set width to 100% */
-    /* margin: 0 auto; */
-    /* Center the layout */
     padding: 0 1rem;
-    /* Add horizontal padding */
+    box-sizing: border-box;
+    gap: 1rem;
   }
 
   .weather-card {
-    width: 90%;
-    /* Set width to 98% */
-    margin:  auto;
-    margin-top: 1.5rem;
+    width: 100%;
+    /* Set width to original */
+    margin: 1rem auto;
     /* Center the card horizontally */
   }
 
   .weather-radar {
-    width: 98%;
-    /* Set width to 98% */
+    width: 100%;
+    /* Set width to original */
     margin: 0 auto;
     /* Center the radar horizontally */
   }
 
   .ad-carousel {
     width: 100%;
-    /* Set width to 98% */
+    /* Set width to original */
     margin: 0 auto;
     /* Center the carousel horizontally */
     height: 214px;

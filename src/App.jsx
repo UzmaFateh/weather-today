@@ -460,11 +460,53 @@ function App() {
             >
               Temp Trend
             </p>
+
+            {/* Recent Cities in Mobile Menu */}
+            <div className="mobile-recent-cities">
+              <p className="menu-section-title">Recent Cities:</p>
+              {recent.length > 0 ? (
+                recent.slice(0, 5).map((city, index) => (
+                  <p
+                    key={index}
+                    onClick={() => {
+                      fetchWeatherByCity(city);
+                      setShowNavMenu(false);
+                    }}
+                    className="recent-city-item"
+                  >
+                    {city}
+                  </p>
+                ))
+              ) : (
+                <p className="no-recent">No recent cities</p>
+              )}
+            </div>
+
+            {/* Favorites in Mobile Menu */}
+            <div className="mobile-favorites">
+              <p className="menu-section-title">Favorites:</p>
+              {favorites.length > 0 ? (
+                favorites.map((fav, index) => (
+                  <p
+                    key={index}
+                    onClick={() => {
+                      fetchWeatherByCity(fav);
+                      setShowNavMenu(false);
+                    }}
+                    className="favorite-item"
+                  >
+                    {fav}
+                  </p>
+                ))
+              ) : (
+                <p className="no-favorites">No favorites yet</p>
+              )}
+            </div>
           </div>
         )}
       </nav>
 
-
+{/* //////////////////hero section/////////////////////////////////////// */}
 
 
       <div className="hero-section">
@@ -568,7 +610,7 @@ function App() {
       )}
 
 
-
+{/* ?????????????????????????????/threeColumnLayout??????????????????????????? */}
 
 
       <ThreeColumnLayout
@@ -683,7 +725,7 @@ function App() {
 
       {forecast.length > 0 && (
         <div id="trend-section" className="chart-section">
-          <h3>7-Day Temperature Trend</h3>
+          <h3>5-Day Temperature Trend</h3>
           <ResponsiveContainer width="100%" height={250}>
             <LineChart data={forecast.map(d => ({ ...d, temp: d.main.temp }))}>
               <XAxis dataKey="dt_txt" tickFormatter={(str) => new Date(str).toLocaleDateString("en-US", { weekday: 'short' })} />

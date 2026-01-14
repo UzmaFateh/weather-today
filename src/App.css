@@ -24,6 +24,7 @@
 .navbar h1 {
   font-size: 1.4rem;
   margin: 0;
+  color: #2c3e50;
 }
 
 .logo{
@@ -31,8 +32,8 @@
 }
 
 .app-logo{
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
 }
 
 /* Desktop/Tablet nav links */
@@ -71,19 +72,24 @@
   top: 60px;
   right: 20px;
   /* background: rgba(0, 0, 0, 0.85); */
-  background-color: white;
+ 
+   background: rgb(195, 231, 245);
+     background: rgb(92, 198, 240);
   box-shadow: 0 4px 12px rgba(0,0,0,0.5);
   border-radius: 8px;
   padding: 10px 0;
   display: flex;
   flex-direction: column;
-  width: 150px;
+  width: 180px;
+  max-height: 300px;
+  overflow-y: auto;
   animation: fadeIn 0.3s ease-in-out;
-  
+
 }
 
 .navbar-dropdown p {
-  /* color: #fff; */
+  color: #000428;
+    color: #2c3e50;
   padding: 10px 15px;
   margin: 0;
   cursor: pointer;
@@ -93,7 +99,7 @@
 
 
 .navbar-dropdown p:hover {
-  background: rgba(193, 189, 189, 0.15);
+  background: rgba(112, 108, 108, 0.15);
 }
 
 /* Responsive behavior */
@@ -119,6 +125,58 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* Styles for mobile menu sections */
+.menu-section-title {
+  font-weight: bold;
+  padding: 8px 15px;
+  margin: 5px 0;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  color: #fff;
+}
+
+.recent-city-item,
+.favorite-item {
+  padding: 8px 15px;
+  margin: 2px 0;
+  cursor: pointer;
+  transition: background 0.3s;
+  color: #fff;
+}
+
+.no-recent,
+.no-favorites {
+  padding: 8px 15px;
+  margin: 2px 0;
+  color: #999;
+  font-style: italic;
+}
+
+.recent-city-item:hover,
+.favorite-item:hover {
+  background: rgba(255,255,255,0.2);
+  border-radius: 4px;
+}
+
+.mobile-recent-cities,
+.mobile-favorites {
+  width: 100%;
+  margin-top: 5px;
+}
+
+/* Ensure mobile menu items are visible */
+.navbar-dropdown .mobile-recent-cities,
+.navbar-dropdown .mobile-favorites {
+  color: #000428;
+    color: #2c3e50;
+}
+
+.navbar-dropdown .mobile-recent-cities p,
+.navbar-dropdown .mobile-favorites p {
+  color: #000428;
+    color: #2c3e50;
+}
+
 
 
 
@@ -128,7 +186,7 @@
   display: flex;
   justify-content: center;
   width: 100%;
-  padding: 2px 2%;
+  padding: 8px 2%;
   /* color: #fff; */
 
   /* background-color: rgb(31, 98, 76); */
@@ -319,7 +377,8 @@ input:checked + .slider:before {
   align-items: center;
   gap: 6px;
   /* background: rgba(255, 255, 255, 0.15); */
-  background-color: #2196f3;
+  /* background-color: #2196f3; */
+  background: rgb(92, 198, 240);
   backdrop-filter: blur(8px);
   border-radius: 8px;
   padding: 6px 12px;
@@ -375,6 +434,7 @@ input:checked + .slider:before {
   /* background: rgba(0, 0, 0, 0.85); */
   background-color: white;
   color: #000428;
+  color: #2c3e50;
   list-style: none;
   padding: 8px 12px;
   margin: 0.1rem auto;
@@ -429,7 +489,7 @@ input:checked + .slider:before {
 
 /* ---------- RESPONSIVE TWEAKS ---------- */
 
-@media (max-width: 769px)  {
+@media (max-width: 768px)  {
   .hero-section {
     padding: 1rem; /* Dynamic padding */
   }
@@ -439,19 +499,21 @@ input:checked + .slider:before {
     gap: 1rem; /* Space between the two rows */
   }
 
-  .search-toggle-container,
-  .recent-favorites-container {
+  .search-toggle-container {
     width: 100%;
     justify-content: center;
     flex: unset; /* Reset flex property */
+  }
+
+  /* Hide recent carousel and favorites dropdown on mobile */
+  .recent-favorites-container {
+    display: none;
   }
 
     .suggestions{
 width: 94%;
 margin-left: 4px;
   }
-
-  
 }
 
 @media (max-width: 420px) {
@@ -468,7 +530,7 @@ margin-left: 4px;
 }
 
   .hero-section {
-    padding: 1rem 1rem;
+    padding: 0.5rem 1rem;
   }
 
   .hero-controls-parent {
